@@ -1,20 +1,22 @@
+// _layout.tsx
 import { Redirect, Tabs } from "expo-router";
 import { Platform } from "react-native";
 import { Ionicons, Octicons } from "@expo/vector-icons";
-import { useAuth, useUser } from "@clerk/clerk-expo";
-
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
+import { useUser, useAuth } from "@clerk/clerk-expo";
+import { Colors } from "@/constants/Colors"; // Ensure correct path
+import { useColorScheme } from "@/hooks/useColorScheme"; // Ensure correct path
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const { user } = useUser();
-  const { isSignedIn } = useAuth();
+  const colorScheme = useColorScheme(); // Get the color scheme (light/dark)
+  const { user } = useUser(); // Get the user data from Clerk
+  const { isSignedIn } = useAuth(); // Check if the user is signed in
 
+  // If the user is not signed in, redirect them to the login screen
   if (!isSignedIn) {
     return <Redirect href="/auth" />;
   }
 
+  // If the user has not completed onboarding, redirect them to the onboarding page
   if (isSignedIn && user?.unsafeMetadata?.onboarding_completed !== true) {
     return <Redirect href="/auth/complete-your-account" />;
   }
@@ -22,22 +24,25 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint, // Dynamic tint color based on the color scheme
         headerShown: false,
         tabBarStyle: Platform.select({
           ios: {
-            position: "absolute",
+            position: "absolute", // Fix position for iOS
+            display: "flex", // Always display by default
           },
-          default: {},
+          default: {
+            display: "flex", // Always display by default
+          },
         }),
       }}
     >
-      {/* Home Tab */}
+      {/* Home Tab (index) */}
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <Octicons name="home" size={24} color={color} />
           ),
         }}
@@ -47,7 +52,7 @@ export default function TabLayout() {
         name="tips"
         options={{
           title: "Eco Tips",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <Ionicons size={28} name="bulb-outline" color={color} />
           ),
         }}
@@ -57,7 +62,7 @@ export default function TabLayout() {
         name="pickup"
         options={{
           title: "Pickup",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <Ionicons size={28} name="cube-outline" color={color} />
           ),
         }}
@@ -67,7 +72,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ color }: { color: string }) => (
             <Ionicons size={28} name="person-circle-outline" color={color} />
           ),
         }}
