@@ -49,11 +49,14 @@ const buttonIcon = () => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-  
+
     try {
       if (!signIn) {
         throw new Error("Sign-in instance is undefined.");
       }
+
+
+
   
       if (strategy === "email") {
         // Navigate to sign-in page instead of creating sign-in directly
@@ -62,18 +65,20 @@ const buttonIcon = () => {
         const { createdSessionId, setActive } = await startOAuthFlow({
           redirectUrl: Linking.createURL("(tabs)"),
         });
-  
+ 
         if (createdSessionId) {
           setActive?.({ session: createdSessionId });
         }
       }
     } catch (err) {
       console.error("Authentication Error:", err);
+
       alert("Login Failed: " + (err instanceof Error ? err.message : "An error occurred."));
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <TouchableOpacity
       onPress={handleLogin}

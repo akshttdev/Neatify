@@ -54,6 +54,7 @@
             <SocialLoginButton strategy="oauth_google" label="Sign in with Google" />
             <SocialLoginButton strategy="oauth_facebook" label="Sign in with Facebook" />
             <SocialLoginButton strategy="email" label="Sign in with Email" />
+
           </View>
         </View>
       </View>
