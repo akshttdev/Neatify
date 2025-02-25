@@ -24,7 +24,7 @@ Neatify is an eco-conscious mobile application designed to empower individuals t
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/neatify.git
+   git clone https://github.com/akshttdev/neatify.git
    ```
 2. Navigate to the project directory:
    ```bash
